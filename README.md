@@ -1,128 +1,110 @@
-CC LAB 2 – Monolithic Architecture & Load Testing
+# CC LAB 2 – Monolithic Architecture & Load Testing
 
-Name: Bhumika Gupta
-SRN: PES2UG2C3S128
+## Overview
+This lab demonstrates **Monolithic Architecture** using a fest management application built with **FastAPI**.  
+All features such as registration, events, checkout, and my-events run inside a **single application and deployment unit**.
 
-Overview
+The lab also uses **Locust** to perform load testing and analyze performance before and after optimization.
 
-This lab demonstrates the concept of Monolithic Architecture using a fest management application built with FastAPI.
-All features such as registration, events, checkout, and my-events run inside a single application and deployment unit.
+---
 
-Through intentional crashes and load testing using Locust, we observe the limitations of monolithic systems and apply small optimizations to improve performance.
+## Architecture Used
+**Monolithic Architecture**
+- Single FastAPI application
+- Shared codebase and database
+- All modules tightly coupled
+- Single point of failure
 
-Architecture Used
+---
 
-Monolithic Architecture
+## Tech Stack
+- Backend: FastAPI  
+- Database: SQLite  
+- Load Testing Tool: Locust  
+- Language: Python  
 
-Single FastAPI application
+---
 
-Shared codebase and database
+## Lab Objectives
+1. Understand monolithic architecture
+2. Observe system-wide failure due to a single bug
+3. Perform load testing using Locust
+4. Optimize API routes and compare performance
 
-All modules tightly coupled
+---
 
-Single point of failure
+## Steps Performed
 
-Tech Stack
+### 1. Setup & Run
+- Created virtual environment
+- Installed dependencies from `requirements.txt`
+- Initialized database using `insert_events.py`
+- Started FastAPI server using `uvicorn`
 
-Backend: FastAPI
+---
 
-Database: SQLite
+### 2. Application Usage
+- Registered a user
+- Logged in
+- Accessed `/events`
+- Accessed `/my-events` and `/checkout`
 
-Load Testing: Locust
+---
 
-Language: Python
+### 3. Monolithic Failure Demonstration
+- Accessing `/checkout` crashed the entire server
+- Demonstrated the **single point of failure** in monolithic applications
+- Fixed the bug and restarted the server
 
-Lab Objectives
+---
 
-Understand monolithic architecture using a real application
+## Load Testing with Locust
 
-Observe how a failure in one module crashes the entire system
+Load testing was performed on the following routes:
+- `/checkout`
+- `/events`
+- `/my-events`
 
-Perform load testing using Locust
+Tests were run **before and after optimization** to compare performance.
 
-Optimize API routes and analyze performance improvements
+---
 
-Steps Performed
-1. Application Setup
+## Optimization Summary
 
-Created virtual environment
+### Bottlenecks
+- Inefficient backend logic
+- Slow tail responses
+- Client-side request overhead
+- No request timeout
+- Fragmented endpoint statistics
 
-Installed dependencies
+---
 
-Initialized database using insert_events.py
+### Changes Made
+- Optimized inefficient logic
+- Used request parameters instead of query strings
+- Added request timeouts
+- Grouped endpoint statistics in Locust
+- Reduced wait time to improve connection reuse
 
-Ran FastAPI server using uvicorn
+---
 
-2. Functional Testing
+### Performance Improvement
+- Reduced average response time
+- More stable latency values
+- Better throughput consistency
+- Cleaner and more accurate load testing metrics
 
-Registered user
+---
 
-Logged in
+## Conclusion
+Monolithic applications are simple and easy to build but suffer from scalability and reliability issues.  
+This lab demonstrates how a failure in one module can crash the entire system and why performance optimization and microservices are important for larger applications.
 
-Accessed /events
+---
 
-Verified /my-events and /checkout
-
-3. Monolithic Failure Demonstration
-
-Accessing /checkout caused the entire server to crash
-
-Demonstrated single point of failure in monolithic systems
-
-Bug was fixed by commenting out faulty logic
-
-Load Testing with Locust
-Optimized Routes
-
-/checkout
-
-/events
-
-/my-events
-
-Observations
-
-Before optimization: higher average response time and unstable tail latency
-
-After optimization: lower average response time and more stable performance
-
-Optimization Summary
-Bottlenecks Identified
-
-Inefficient logic
-
-Slow tail responses
-
-Client-side request overhead
-
-No request timeout
-
-Fragmented endpoint statistics
-
-Changes Made
-
-Optimized backend logic (for /checkout)
-
-Used request parameters instead of query strings
-
-Added request timeouts
-
-Grouped Locust endpoint statistics
-
-Reduced wait time to reuse connections
-
-Why Performance Improved
-
-Reduced unnecessary computation
-
-Prevented slow requests from inflating averages
-
-Better connection reuse
-
-Cleaner and more accurate load testing metrics
-
-Conclusion
-
-This lab highlights why monolithic applications are simple but risky at scale.
-While easy to build and deploy, failures and scaling issues affect the entire system.
-Through load testing and optimization, we improved performance but also understood why microservices are preferred for large-scale applications.
+## Submission Contents
+- Public GitHub repository
+- Screenshots SS1 to SS9
+- Optimized code
+- This README
